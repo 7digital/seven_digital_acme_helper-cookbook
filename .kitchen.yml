@@ -35,6 +35,7 @@ suites:
     run_list:
       - recipe[seven_digital_acme_helper_test::boulder_server]
       - recipe[seven_digital_acme_helper_test::http]
+      - recipe[seven_digital_acme_helper::authorisation_server]
     attributes:
       boulder:
         revision: 2d33a9900cafe82993744fe73bd341fe47df2171
@@ -42,3 +43,7 @@ suites:
         endpoint: http://127.0.0.1:4000
         contact:
         - mailto:admin@example.com
+      seven_digital_acme_helper:
+        data_bag_name: ssl_certs
+    data_bags_path: 'test/fixtures/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/fixtures/encrypted_data_bag_secret'
