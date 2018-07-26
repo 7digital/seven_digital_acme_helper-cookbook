@@ -11,5 +11,5 @@ default['seven_digital_acme_helper']['certificates'] = [
 ]
 
 default['seven_digital_acme_helper']['data_bag_secret'] = Chef::Config[:encrypted_data_bag_secret]
-
+default['seven_digital_acme_helper']['certificate_temp_location'] = '/tmp/seven_digital_acme_helper'
 default['seven_digital_acme_helper']['wwwroot'] = '/var/www/nginx-default'
