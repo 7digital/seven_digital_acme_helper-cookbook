@@ -12,4 +12,4 @@ default['seven_digital_acme_helper']['certificates'] = [
 
 default['seven_digital_acme_helper']['data_bag_secret'] = Chef::Config[:encrypted_data_bag_secret]
 
-default['seven_digital_acme_helper']['wwroot'] = '/var/www/nginx-default'
+default['seven_digital_acme_helper']['wwwroot'] = '/var/www/nginx-default'

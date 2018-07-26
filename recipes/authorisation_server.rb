@@ -6,8 +6,8 @@
 
 node['seven_digital_acme_helper']['certificates'].each do |certificate|
   # Request the Certificate
-  acme_certificate 'test.example.com' do
-    alt_names         ['web.example.com', 'mail.example.com']
+  acme_certificate certificate['domain'] do
+    alt_names         certificate['alt_names']
     fullchain         certificate['fullchain']
     chain             certificate['chain']
     key               certificate['key']

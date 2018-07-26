@@ -35,6 +35,7 @@ suites:
     run_list:
       - recipe[seven_digital_acme_helper_test::boulder_server]
       - recipe[seven_digital_acme_helper_test::http]
+      - recipe[seven_digital_acme_helper::https_server]
       - recipe[seven_digital_acme_helper::authorisation_server]
     attributes:
       boulder:

@@ -5,13 +5,10 @@ property :data_bag_name, [String]
 property :data_bag_secret, [String]
 property :crt,        [String, nil], default: nil
 property :key,        [String, nil], default: nil
-
 property :chain,      [String, nil], default: nil
 property :fullchain,  [String, nil], default: nil
 
 action :sync do
-  raise if new_resource.fullchain.empty?
-
   key_content = new_resource.key.nil? ? '' : ::File.read(new_resource.key)
   crt_content = new_resource.crt.nil? ? '' : ::File.read(new_resource.crt)
   chain_content = new_resource.chain.nil? ? '' : ::File.read(new_resource.chain)
@@ -25,7 +22,6 @@ action :sync do
     'fullchain' => fullchain_content
   }
 
-  log("using #{new_resource.data_bag_secret} #{new_resource.fullchain.strip.length} to encrypt data bag #{new_resource.data_bag_name}")
   secret = Chef::EncryptedDataBagItem.load_secret(new_resource.data_bag_secret)
   encrypted_data_hash = Chef::EncryptedDataBagItem.encrypt_data_bag_item(certificate_databag_item, secret)
   databag_item = Chef::DataBagItem.new
