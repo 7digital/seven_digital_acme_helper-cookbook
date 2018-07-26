@@ -16,15 +16,21 @@ action :sync do
   fullchain_content = new_resource.fullchain.nil? ? '' : ::File.read(new_resource.fullchain)
 
   data_bag_item_name = new_resource.certificate_name.gsub(/[^a-zA-Z\-_0-9]/, '_')
-  certificate_databag_item = data_bag_item(new_resource.data_bag_name, new_resource.data_bag_name)
-  certificate_databag_item[data_bag_item_name] = {}
-  certificate_databag_item[data_bag_item_name]['key'] = key_content
-  certificate_databag_item[data_bag_item_name]['crt'] = crt_content
-  certificate_databag_item[data_bag_item_name]['chain'] = chain_content
-  certificate_databag_item[data_bag_item_name]['fullchain'] = fullchain_content
+  certificate_databag_item = {
+    'id' => data_bag_item_name,
+    'key' => key_content,
+    'crt' => crt_content,
+    'chain' => chain_content,
+    'fullchain' => fullchain_content
+  }
 
   begin
-    certificate_databag_item.save
+    secret = Chef::EncryptedDataBagItem.load_secret(new_resource.data_bag_secret)
+    encrypted_data_hash = Chef::EncryptedDataBagItem.encrypt_data_bag_item(certificate_databag_item, secret)
+    databag_item = Chef::DataBagItem.new
+    databag_item.data_bag(new_resource.data_bag_name)
+    databag_item.raw_data = encrypted_data_hash
+    databag_item.save
   rescue StandardError => err_result
     log 'Cert upload' do
       message "Failed uploading cert for #{data_bag_item_name} to databag #{new_resource.data_bag_name} using secret #{new_resource.data_bag_secret}\n#{err_result}"
