@@ -1,4 +1,3 @@
-include_recipe 'acme'
 
 # Generate selfsigned certificate so nginx can start
 acme_selfsigned 'test.example.com' do
