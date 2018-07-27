@@ -35,7 +35,8 @@ action :sync do
     databag_item = Chef::DataBagItem.new
 
     encrypted_data_hash = Chef::EncryptedDataBagItem.encrypt_data_bag_item(certificate_databag_item, secret)
-    encrypted_databag_item = data_bag_item(new_resource.data_bag_name, data_bag_item_name)
+    encrypted_databag_item = Chef::DataBagItem.new
+    encrypted_databag_item.data_bag(new_resource.data_bag_name)
     encrypted_databag_item.raw_data = encrypted_data_hash
     encrypted_databag_item.save
     return
