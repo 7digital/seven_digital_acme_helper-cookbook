@@ -1,4 +1,5 @@
 default['seven_digital_acme_helper']['data_bag_name'] = ''
+default['seven_digital_acme_helper']['data_bag_name'] = ''
 
 default['seven_digital_acme_helper']['certificates'] = [
   {

@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures seven_digital_acme_helper'
 long_description 'Installs/Configures seven_digital_acme_helper'
-version '0.1.11'
+version '0.1.16'
 chef_version '>= 12.1' if respond_to?(:chef_version)
 
 depends          'acme'
