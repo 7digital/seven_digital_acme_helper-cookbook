@@ -11,8 +11,12 @@ property :owner,  [String, nil], default: nil
 property :group,  [String, nil], default: nil
 
 action :sync do
-  data_bag_secret = IO.read(new_resource.data_bag_secret)
-  data_bag_contents = data_bag_item(new_resource.data_bag_name, new_resource.certificate_name, data_bag_secret)
+  data_bag_item_name = new_resource.certificate_name.gsub(/[^a-zA-Z\-_0-9]/, '_')
+  log 'databag download' do
+    message "Fetching data from #{new_resource.data_bag_name} #{data_bag_item_name} using #{new_resource.data_bag_secret}"
+    level :info
+  end
+  data_bag_contents = data_bag_item(new_resource.data_bag_name, data_bag_item_name, IO.read(new_resource.data_bag_secret).strip)
 
   unless new_resource.key.nil?
     file new_resource.key do

@@ -46,7 +46,4 @@ action :sync do
       level :fatal
     end
   end
-
-
-
 end
