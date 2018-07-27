@@ -21,3 +21,6 @@ Server 2 (Web Server):
 # Pre-requisites
 1. The databag and databag item must already exist. Each domain has its own databag item which is named as `'example.com'.gsub(/[^a-zA-Z\-_0-9]/, '_')`
 2. The databag must give permission to the node which is uploading the certs to the databag item (the authorisation server) 'update' permissions.
+
+# TODO
+Ensure that databag only gets updated when the certificate updates
