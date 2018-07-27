@@ -5,6 +5,8 @@
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
 cert_temp_location = node['seven_digital_acme_helper']['certificate_temp_location']
+
+# Ensure the temp location exists
 directory cert_temp_location
 
 include_recipe 'acme'

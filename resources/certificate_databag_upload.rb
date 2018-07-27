@@ -25,11 +25,6 @@ action :sync do
     'fullchain' => fullchain_content
   }
 
-  log 'Cert upload' do
-    message "uploading cert for #{data_bag_item_name} to databag #{new_resource.data_bag_name} using secret #{new_resource.data_bag_secret}"
-    level :warn
-  end
-
   begin
     secret = Chef::EncryptedDataBagItem.load_secret(new_resource.data_bag_secret)
     databag_item = Chef::DataBagItem.new
@@ -41,9 +36,6 @@ action :sync do
     encrypted_databag_item.save
     return
   rescue StandardError => err_result
-    log 'Cert upload' do
-      message "Failed uploading cert for #{data_bag_item_name} to databag #{new_resource.data_bag_name} using secret #{new_resource.data_bag_secret}\n#{err_result}"
-      level :fatal
-    end
+    throw "Failed uploading cert for #{data_bag_item_name} to databag #{new_resource.data_bag_name} using secret #{new_resource.data_bag_secret}\n#{err_result}"
   end
 end
