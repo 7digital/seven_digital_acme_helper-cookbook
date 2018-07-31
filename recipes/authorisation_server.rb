@@ -29,6 +29,10 @@ node['seven_digital_acme_helper']['certificates'].each do |certificate|
     chain             cert_temp_location + certificate['domain'] + '-chain.crt'
     key               cert_temp_location + certificate['domain'] + '.pem'
     wwwroot           node['seven_digital_acme_helper']['wwwroot']
+    # This has been set because there is a bug in the acme cookbook (seemingly) which caused any certificate
+    #  with a Subject Alternative Name (alt_name) to be renewed on every chef run and eventually fail due
+    #  to exceeding the API rate limits of encrypt for a specific certificate
+    ignore_failure    true
   end
 
   # Upload the certificate
