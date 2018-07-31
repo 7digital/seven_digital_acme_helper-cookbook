@@ -3,11 +3,11 @@ default['seven_digital_acme_helper']['data_bag_name'] = ''
 
 default['seven_digital_acme_helper']['certificates'] = [
   {
-    'domain' => 'example.com',
+    'domain' => 'test.example.com',
     'alt_names' => ['web.example.com', 'mail.example.com'],
-    'fullchain' => '/etc/ssl/example.com.crt',
-    'chain' => '/etc/ssl/example.com-chain.crt',
-    'key' => '/etc/ssl/example.com.pem'
+    'fullchain' => '/etc/ssl/test.example.com.crt',
+    'chain' => '/etc/ssl/test.example.com-chain.crt',
+    'key' => '/etc/ssl/test.example.com.pem'
   }
 ]
 

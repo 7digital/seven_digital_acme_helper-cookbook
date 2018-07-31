@@ -12,6 +12,16 @@ directory cert_temp_location
 include_recipe 'acme'
 
 node['seven_digital_acme_helper']['certificates'].each do |certificate|
+  # Download the certificate from the databag (if it exists) to ensure that we're not
+  #  unnecessarily requesting certificates if the files get cleaned out for whatever reason
+  seven_digital_acme_helper_certificate_databag_download certificate['domain'] do
+    data_bag_name      node['seven_digital_acme_helper']['data_bag_name']
+    data_bag_secret    node['seven_digital_acme_helper']['data_bag_secret']
+    fullchain          cert_temp_location + certificate['domain'] + '.crt'
+    chain              cert_temp_location + certificate['domain'] + '-chain.crt'
+    key                cert_temp_location + certificate['domain'] + '.pem'
+  end
+
   # Request the Certificate
   acme_certificate certificate['domain'] do
     alt_names         certificate['alt_names']
