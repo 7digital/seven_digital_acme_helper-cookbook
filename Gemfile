@@ -1,4 +1,3 @@
-
 # Added at 2018-07-25 11:06:55 +0100 by sammartin:
 gem 'test-kitchen', '~> 1.22'
 
